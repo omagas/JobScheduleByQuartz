@@ -8,7 +8,7 @@ import javax.mail.internet.*;
 import javax.activation.*;
 
 public class mail {
-	public void doSendVendorMail(String to) {
+	public void doSendVendorMail(String to,String Content) {
 
 		// Recipient's email ID needs to be mentioned.
 		String cc = "louie.cheng@qsitw.com";
@@ -44,15 +44,16 @@ public class mail {
 			message.addRecipient(Message.RecipientType.CC, new InternetAddress(
 					cc));			
 			// Set Subject: header field
-			message.setSubject("信件主旨");
+			message.setSubject("信件主旨","UTF-8");
 
 			// Send the actual HTML message, as big as you like
-			message.setContent("<div><h1>access</h1></div><div>access2</div>",
-					"text/html");
+			message.setContent(Content,
+					"text/html;charset=UTF-8");
+			
 
 			// Send message
 			Transport.send(message);
-			System.out.println("Sent message successfully....");
+			System.out.println("Sent message successfully...."+Content);
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
 			

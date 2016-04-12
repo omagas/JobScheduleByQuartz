@@ -31,12 +31,10 @@ public class QuartzJob implements Job {
 
 	
 	DaoFunc QueryDao=new DaoFunc();
-	QueryDao.Query_tc_pna_file();
-	
-	
+	//String msgcontent=QueryDao.Query_tc_pna_file();
+	String msgcontent="Take a Break...";
 	mail nn=new mail();
-	nn.doSendVendorMail(sPmd07);	
-	
+	nn.doSendVendorMail(sPmd07,msgcontent);	
 	logger.info("Mail Sended to"+sPmd07);
 	
 	}

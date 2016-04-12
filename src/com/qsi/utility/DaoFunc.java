@@ -49,9 +49,10 @@ public class DaoFunc {
 	
 	
 	
-public void Query_tc_pna_file(){
+public String Query_tc_pna_file(){
 		StringBuffer sbSQL = new StringBuffer();
         Connection conn;
+        String msgcontent = null;
         try {
         	DBConnector dbConn =new DBConnector();
         	conn = dbConn.getConnection("jdbc/gpErpDs");
@@ -65,11 +66,14 @@ public void Query_tc_pna_file(){
 			logger.info("Success to get data source connection");
 			sbSQL.append("select PMM01,PMM09,PMD07 from pmm_file,tc_pnb_file,pmd_file　where tc_pnb01=pmm01 and　PMD01=PMM09 and PMM01='SPO1-1601000001'");
             
+			
+			
 		    PreparedStatement pst_pmcs = conn.prepareStatement(sbSQL.toString());
 		    ResultSet rs_pmcs = pst_pmcs.executeQuery();
 		    
 		    StringBuffer sbBodyColumn    = new StringBuffer();
 		    StringBuffer sbBodyContent   = new StringBuffer();
+		    
 		    int i=0;
 			      while (rs_pmcs.next())  {
 			    	  	
@@ -79,10 +83,13 @@ public void Query_tc_pna_file(){
 						logger.info("vendor:"+rs_pmcs.getString("PMD07"));
 						
 						
-					    sbBodyColumn.append("<div style='margin-top:10px'>&nbsp;</div>\n");
+						sbBodyColumn.append("<html>\n");
+						sbBodyColumn.append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>\n");
+						sbBodyColumn.append("<body>\n");
+						sbBodyColumn.append("<div style='margin-top:10px'>&nbsp;</div>\n");
 					    sbBodyColumn.append("<table border='1' cellspacing='0' cellpadding='3' class='tbFrame'>\n");
 					    sbBodyColumn.append("<tr>\n");
-					    sbBodyColumn.append("  <th class='tbHeader' nowrap>廠商回覆備註說明</th>\n");
+					    
 					    sbBodyColumn.append("  <th class='tbHeader' nowrap>變更日期</th>\n");
 					    sbBodyColumn.append("  <th class='tbHeader' nowrap>變更原因</th>\n");
 					    sbBodyColumn.append("  <th class='tbHeader' nowrap>採購單號</th>\n");
@@ -98,8 +105,32 @@ public void Query_tc_pna_file(){
 					    sbBodyColumn.append("  <th class='tbHeader' nowrap>變更後未稅單價</th>\n");
 					    sbBodyColumn.append("  <th class='tbHeader' nowrap>原交期</th>\n");
 					    sbBodyColumn.append("  <th class='tbHeader' nowrap>變更後交期</th>\n");
-					    sbBodyColumn.append("</tr>\n");		
+					    sbBodyColumn.append("</tr>\n");	
+					    sbBodyColumn.append("<tr class='tbBody' align='center'>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>2016-02-02 00:00:00.0</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>??</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>SPO1-1601000010</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>1</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>1</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>SPO1-1601000010</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>MEMORY IC,132BGA,32GB,64GBMA1YEX3 2P,4D,KK,PBF,CSS,SDSS HELEN - OEM(MHF)</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>7SD54-82-05444-032G</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>MEMORY IC,132BGA,32GB,64GBMA1YEX3 2P,4D,KK,PBF,CSS,SDSS HELEN - OEM(MHF)</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>5941.0</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>0.0</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>3.7228</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>3.0</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>2016-01-16 00:00:00.0</td>");
+					    sbBodyColumn.append("<td nowrap class='td_column' align='center'>2016</td>");			    
 					    
+					    sbBodyColumn.append("</tr>\n");						    
+					    sbBodyColumn.append("</table>\n");
+					    sbBodyColumn.append("</div>\n");
+					    sbBodyColumn.append("</body>\n");
+					    sbBodyColumn.append("</html>\n");	
+					    
+					    
+					    msgcontent=sbBodyColumn.toString();
 					    
 					    
 						
@@ -107,6 +138,8 @@ public void Query_tc_pna_file(){
 			      }
 		
 			}
+			
+			
 
         } catch (NamingException e) {
 			// TODO Auto-generated catch block
@@ -114,7 +147,8 @@ public void Query_tc_pna_file(){
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 	
+		}
+		return msgcontent; 	
 		
 	}
 	
