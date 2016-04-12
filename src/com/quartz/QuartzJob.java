@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.quartz.SchedulerException;
 
 import com.qsi.utility.DBConnector;
 import com.qsi.utility.DaoFunc;
@@ -37,5 +38,6 @@ public class QuartzJob implements Job {
 	nn.doSendVendorMail(sPmd07,msgcontent);	
 	logger.info("Mail Sended to"+sPmd07);
 	
+
 	}
 }

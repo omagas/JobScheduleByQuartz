@@ -2,16 +2,23 @@ package com.quartz;
 
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
+
+
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.Logger;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobDetail;
+import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
+import org.quartz.impl.matchers.GroupMatcher;
 
 public class QuartzListener implements ServletContextListener {
     Scheduler scheduler = null;
@@ -30,7 +37,7 @@ public class QuartzListener implements ServletContextListener {
                     // Create a Trigger that fires every 5 minutes.
                     Trigger trigger = newTrigger()
                     .withIdentity("TriggerName", "Group")
-                    .withSchedule(CronScheduleBuilder.cronSchedule("0/60 * * * * ?"))
+                    .withSchedule(CronScheduleBuilder.cronSchedule("0/30 * * * * ?"))
                     .build();
 
                     // Setup the Job and Trigger with Scheduler & schedule jobs
@@ -38,30 +45,22 @@ public class QuartzListener implements ServletContextListener {
                     scheduler.start();
                     scheduler.scheduleJob(job, trigger);
                     
-                    for (String groupName : scheduler.getJobGroupNames()) {
 
-                        for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
-                   				
-                   	  String jobName = jobKey.getName();
-                   	  String jobGroup = jobKey.getGroup();
-                   				
-                   	  //get job's trigger
-                   	  List<Trigger> triggers = (List<Trigger>) scheduler.getTriggersOfJob(jobKey);
-                   	  Date nextFireTime = triggers.get(0).getNextFireTime(); 
-
-                   		System.out.println("[jobName] : " + jobName + " [groupName] : "
-                   			+ jobGroup + " - " + nextFireTime);
-
-                   	  }
-
-                    }
             }
             catch (SchedulerException e) {
                     e.printStackTrace();
             }
     }
 
-    @Override
+    public Scheduler getScheduler() {
+		return scheduler;
+	}
+
+	public void setScheduler(Scheduler scheduler) {
+		this.scheduler = scheduler;
+	}
+
+	@Override
     public void contextDestroyed(ServletContextEvent servletContext) {
             System.out.println("Context Destroyed");
             try 
