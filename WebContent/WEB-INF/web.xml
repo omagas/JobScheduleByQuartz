@@ -16,7 +16,7 @@
   </welcome-file-list>
   
   
-  
+ 
   
   
   <servlet>
@@ -27,6 +27,16 @@
     <servlet-name>DoShutdown</servlet-name>
     <url-pattern>/servlet</url-pattern>
   </servlet-mapping>  
+  
+  
+    <servlet>
+    <servlet-name>DoRestart</servlet-name>
+    <servlet-class>com.qsi.utility.DoRestartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DoRestart</servlet-name>
+    <url-pattern>/wakeup</url-pattern>
+  </servlet-mapping>
   
   <listener><listener-class>com.quartz.QuartzListener</listener-class></listener>
   
