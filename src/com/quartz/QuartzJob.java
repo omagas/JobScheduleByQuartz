@@ -36,7 +36,7 @@ public class QuartzJob implements Job {
 	String msgcontent="Take a Break...";
 	mail nn=new mail();
 	nn.doSendVendorMail(sPmd07,msgcontent);	
-	logger.info("Mail Sended to"+sPmd07);
+	logger.info("Mail Sended to :"+sPmd07);
 	
 
 	}

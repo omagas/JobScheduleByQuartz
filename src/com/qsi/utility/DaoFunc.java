@@ -10,6 +10,12 @@ import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
+/*
+ * Author: Louie
+ * Description: DB DAO Class 
+ * 
+ * */
+
 public class DaoFunc {
 	private Logger logger = Logger.getLogger(DaoFunc.class);
 
@@ -75,6 +81,7 @@ public String Query_tc_pna_file(){
 		    StringBuffer sbBodyContent   = new StringBuffer();
 		    
 		    int i=0;
+		    
 			      while (rs_pmcs.next())  {
 			    	  	
 			    	  

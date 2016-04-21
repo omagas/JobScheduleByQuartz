@@ -11,13 +11,13 @@ public class mail {
 	public void doSendVendorMail(String to,String Content) {
 
 		// Recipient's email ID needs to be mentioned.
-		String cc = "louie.cheng@qsitw.com";
+		String cc = "";
 
 		// Sender's email ID needs to be mentioned
-		String from = "efgp.public@techman1.com.cn";
+		String from = "";
 
 		// Assuming you are sending email from localhost
-		String host = "172.18.10.20";
+		String host = "";
 
 		// Get system properties
 		Properties properties = System.getProperties();

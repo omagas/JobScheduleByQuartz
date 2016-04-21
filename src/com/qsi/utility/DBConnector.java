@@ -16,7 +16,7 @@ public class DBConnector {
 	
 	
 	  /**
-	  * @author Nimbus of Advtek Crop.
+	  * @author Louie
 	  * 
 	  * @return ��o weblogic DataSource ���s�u
 	  **/
